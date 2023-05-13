@@ -5,6 +5,7 @@ import fly4j.common.file.FileNameUtilHelper;
 import fly4j.common.file.FileUtil;
 import fly4j.common.file.FilenameUtil;
 import fly4j.common.util.StringConst;
+import fly4j.common.util.map.LinkedHashMapUtil;
 import fly4j.common.util.map.MapUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -97,7 +98,7 @@ public class DirCompareUtil {
         //查找新文件夹中和老的文件夹长度一致的文件
         List<File> leftDoubleFilesFromLen = new ArrayList<>();
         List<File> rightDoubleFileFromLen = new ArrayList<>();
-        LinkedHashMap<String, List<File>> leftGroupFileMap_len = MapUtil.convert2ValueMap(leftLenMap_file);
+        LinkedHashMap<String, List<File>> leftGroupFileMap_len = LinkedHashMapUtil.convert2ValueMap(leftLenMap_file);
         rightLenMap_file.forEach((file, lenStr) -> {
             if (leftGroupFileMap_len.containsKey(lenStr)) {
                 //长度相等的嫌疑统统加入
@@ -129,9 +130,9 @@ public class DirCompareUtil {
         //取得文件长度的Map
         LinkedHashMap<File, String> fileLengthMapAll = DigestCalculate.getDirDigestFileMap(leftDirStr, DigestCalculate.DigestType.LEN, noNeedCalMd5FileFilter);
         //转换Map：Key:文件长度，value：长度相等的文件列表
-        LinkedHashMap<String, List<File>> lengthGroupFileMap_len = MapUtil.convert2ValueMap(fileLengthMapAll);
+        LinkedHashMap<String, List<File>> lengthGroupFileMap_len = LinkedHashMapUtil.convert2ValueMap(fileLengthMapAll);
         //从ValueMap中查找重复文件
-        LinkedHashMap<String, List<File>> doubleFileMapByLen_len = MapUtil.filterLinkedHashMap(lengthGroupFileMap_len, e -> e.getValue().size() > 1);
+        LinkedHashMap<String, List<File>> doubleFileMapByLen_len = LinkedHashMapUtil.filterLinkedHashMap(lengthGroupFileMap_len, e -> e.getValue().size() > 1);
         //简化结构，统一放入，不用按长度分堆 ，以前算法保持分堆，后续的二次检验在分堆中查找
         List<File> doubleFilesByLen = doubleFileMapByLen_len.entrySet().stream().flatMap(e -> e.getValue().stream()).collect(Collectors.toList());
 
@@ -140,7 +141,7 @@ public class DirCompareUtil {
         //长度相等的一堆数据，生成新的反相Map
         LinkedHashMap<String, List<File>> md5RevertMap_md5 = DigestCalculate.getFilesMd5DoubleMap(doubleFilesByLen);
         //删选MD5相等的
-        MapUtil.filterLinkedHashMap(md5RevertMap_md5, e -> e.getValue().size() > 1).forEach((md5Str, files) -> {
+        LinkedHashMapUtil.filterLinkedHashMap(md5RevertMap_md5, e -> e.getValue().size() > 1).forEach((md5Str, files) -> {
            // if (files.get(0).length() > FileUtils.ONE_MB)
                 oneSameObjs.add(new OneSameObj(files, md5Str));
         });
@@ -161,8 +162,8 @@ public class DirCompareUtil {
         //取得文件夹的Md5
         Map<File, String> rightMap_File = DigestCalculate.getDirDigestFileMap(rightDirStr, DigestCalculate.DigestType.MD5, noNeedCalMd5FileFilter);
 
-        LinkedHashMap<String, List<File>> leftGroupFileMap_md5 = MapUtil.convert2ValueMap(leftMap_File);
-        LinkedHashMap<String, List<File>> rightGroupFileMap_md5 = MapUtil.convert2ValueMap(rightMap_File);
+        LinkedHashMap<String, List<File>> leftGroupFileMap_md5 = LinkedHashMapUtil.convert2ValueMap(leftMap_File);
+        LinkedHashMap<String, List<File>> rightGroupFileMap_md5 = LinkedHashMapUtil.convert2ValueMap(rightMap_File);
 
 
         /**

@@ -5,6 +5,7 @@ import backtool.service.compare.DigestCalculate;
 import fly4j.common.util.DateUtil;
 import fly4j.common.util.FlyString;
 import fly4j.common.os.OsUtil;
+import fly4j.common.util.map.LinkedHashMapUtil;
 import fly4j.common.util.map.MapUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -98,7 +99,7 @@ public class DirVersionGen {
         Map<String, String> currentMd5Map = DigestCalculate.getDirDigestMap(checkDirStr, DigestCalculate.DigestType.MD5, noNeedCalMd5FileFilter);
         //进一步删选MD5一致的文件
         //先生成新的反向
-        LinkedHashMap<String, List<String>> currentMd5RevertMap_md5 = MapUtil.convert2ValueMap(currentMd5Map);
+        LinkedHashMap<String, List<String>> currentMd5RevertMap_md5 = LinkedHashMapUtil.convert2ValueMap(currentMd5Map);
 
         //查找删除的
         List<FileDigestModel> okFiles = new ArrayList<>();
