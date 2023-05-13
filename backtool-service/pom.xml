@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>qryc</groupId>
+        <artifactId>FlyBackTool</artifactId>
+        <version>0.0.5f-SNAPSHOT</version>
+    </parent>
+    <groupId>qryc</groupId>
+    <artifactId>backtool-service</artifactId>
+
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>qryc</groupId>
+            <artifactId>fly4j-common</artifactId>
+            <version>${fly4j-common.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpcomponents.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>${httpcomponents.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
