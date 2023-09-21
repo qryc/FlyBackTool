@@ -39,7 +39,7 @@
 
         <!--  only for BackToolFx      -->
         <httpcomponents.version>4.5.12</httpcomponents.version>
-        <openjfx.version>16</openjfx.version>
+        <openjfx.version>17.0.8</openjfx.version>
 
 
     </properties>
