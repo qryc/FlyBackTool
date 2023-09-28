@@ -27,7 +27,7 @@ public class TestDirZipService {
 
     @Before
     public void setup() throws Exception {
-        TData.createTestFiles();
+        TData.setup();
     }
 
     @Test

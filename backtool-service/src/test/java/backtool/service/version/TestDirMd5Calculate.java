@@ -31,7 +31,7 @@ public class TestDirMd5Calculate {
 
     @Before
     public void setup() throws Exception {
-        TData.createTestFiles();
+        TData.setup();
     }
 
     @Test

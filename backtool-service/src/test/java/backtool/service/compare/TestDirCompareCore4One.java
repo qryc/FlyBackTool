@@ -22,33 +22,27 @@ public class TestDirCompareCore4One {
 
     @Before
     public void setup() throws Exception {
-        TData.createTestFiles();
+        FileUtils.deleteDirectory(new File("/Volumes/HomeWork/flyDataTest/"));
+        FileUtils.copyDirectory(new File("/Volumes/HomeWork/FlyCode/FlyDoc/flyDataTest/"), new File("/Volumes/HomeWork/flyDataTest/"));
     }
 
 
     @Test
     public void deleteOneRepeatFile() throws Exception {
-        File fileA = Path.of(TData.tDataDirPath.toString(), "readme.md").toFile();
-        File fileACopy = Path.of(TData.tDataDirPath.toString(), "readmeCopy.md").toFile();
-        FileUtils.copyFile(fileA, fileACopy);
 
-        List<DirCompareUtil.OneSameObj> oneSameObjs = DirCompareUtil.compareOneDir(TData.tDataDirPath.toString(), null);
-        Assert.assertEquals(1, oneSameObjs.size());
-        List<File> files = oneSameObjs.get(0).sames();
-        Assert.assertEquals(2, files.size());
-        if (files.get(0).getAbsolutePath().equals(fileA.getAbsolutePath())) {
-            Assert.assertEquals(fileA.getAbsolutePath(), files.get(0).getAbsolutePath());
-            Assert.assertEquals(fileACopy.getAbsolutePath(), files.get(1).getAbsolutePath());
-        } else {
-            Assert.assertEquals(fileA.getAbsolutePath(), files.get(1).getAbsolutePath());
-            Assert.assertEquals(fileACopy.getAbsolutePath(), files.get(0).getAbsolutePath());
-        }
+        List<DirCompareUtil.OneSameObj> sameObjs = DirCompareUtil.compareOneDir("/Volumes/HomeWork/flyDataTest/oneDirCompre", null);
+        Assert.assertEquals(1, sameObjs.size());
+        Assert.assertEquals(2, sameObjs.get(0).sames().size());
+        Assert.assertTrue(sameObjs.get(0).sames().contains(new File("/Volumes/HomeWork/flyDataTest/oneDirCompre/img/ck.png")));
+        Assert.assertTrue(sameObjs.get(0).sames().contains(new File("/Volumes/HomeWork/flyDataTest/oneDirCompre/ck.png")));
+
+
     }
 
 
     @After
     public void tearDown() throws Exception {
-        FileUtils.forceDelete(TData.tPath.toFile());
+        FileUtils.deleteDirectory(new File("/Volumes/HomeWork/flyDataTest/"));
     }
 
 }
